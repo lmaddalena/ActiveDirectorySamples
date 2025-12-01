@@ -20,21 +20,31 @@ namespace ActiveDirectorySamples
             //else
             //    Console.WriteLine("Authentication failed");
 
-            Console.WriteLine(GetDisplayName("l.maddalena@almaviva.it"));
+            GetDisplayName("alt2\\l.maddalena");
+
 
             Console.ReadLine();
         }
 
         static string GetDisplayName(string username)
         {
-
+            Console.WriteLine(username);
 
             string name = "";
             using (var context = new PrincipalContext(ContextType.Domain))
             {
                 var usr = UserPrincipal.FindByIdentity(context, username);
                 if (usr != null)
+                {
+                    Console.WriteLine("Found");
+                    Console.WriteLine(usr.EmailAddress);
                     name = usr.DisplayName;
+                    Console.WriteLine(name);
+                }
+                else
+                {
+                    Console.WriteLine("Not Found");
+                }
 
                 return name;
             }
