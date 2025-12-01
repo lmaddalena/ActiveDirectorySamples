@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
+using System.DirectoryServices.AccountManagement;
 
 namespace ActiveDirectorySamples
 {
@@ -12,14 +13,29 @@ namespace ActiveDirectorySamples
     {
         static void Main(string[] args)
         {
-            bool isAtutheticated = Authenticate("", "", "");
+            //bool isAtutheticated = Authenticate("", "", "");
 
-            if (isAtutheticated)
-                Console.WriteLine("Authenticated");
-            else
-                Console.WriteLine("Authentication failed");
+            //if (isAtutheticated)
+            //    Console.WriteLine("Authenticated");
+            //else
+            //    Console.WriteLine("Authentication failed");
+
+            GetDisplayName("");
 
             Console.ReadLine();
+        }
+
+        static void GetDisplayName(string username)
+        {
+
+
+            string name = "";
+            using (var context = new PrincipalContext(ContextType.Domain))
+            {
+                var usr = UserPrincipal.FindByIdentity(context, username);
+                if (usr != null)
+                    name = usr.DisplayName;
+            }
         }
 
         static DirectoryEntry GetDomainInfo()
