@@ -20,12 +20,12 @@ namespace ActiveDirectorySamples
             //else
             //    Console.WriteLine("Authentication failed");
 
-            GetDisplayName("");
+            Console.WriteLine(GetDisplayName("l.maddalena@almaviva.it"));
 
             Console.ReadLine();
         }
 
-        static void GetDisplayName(string username)
+        static string GetDisplayName(string username)
         {
 
 
@@ -35,6 +35,8 @@ namespace ActiveDirectorySamples
                 var usr = UserPrincipal.FindByIdentity(context, username);
                 if (usr != null)
                     name = usr.DisplayName;
+
+                return name;
             }
         }
 
